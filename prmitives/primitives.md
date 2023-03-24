@@ -66,3 +66,124 @@ for year in years.iter(){
 ```
  - **Arrays can be iterated over**
  - **Tuples (and structs) cannot**
+
+
+## Enum
+
+```
+enum Color{
+    Green,Yellow,Red,
+    Custom{
+        red:u8,green:u8,blue:u8
+    },
+    Custom2(u8,u8,u8)
+}
+
+let go=Color::Green;
+let stop=Color::Red;
+let slow_down=Color::Yellow;
+let purple:Color=Color::Custom:{
+    red: 100, green:0, blue:250
+}
+```
+## Pattern Matching
+```
+let current_color=Color::Yellow;
+
+match current_color{
+    Color:: Green =>[
+        printlin!("It was green)
+    ]
+    Color::Yellow =>{
+        printlin!("It was yellow")
+    }
+    Color::Custom {red,green,blue}=>{
+        printlin!("{} {} {}",red,green,blue);
+    }
+}
+```
+## Method
+
+```
+enum Color {...}
+
+impl Color{   //impl is short for implementation
+ fn rgb(color: Color) ->(u8,u8,u8){...}
+ fn new(r:u8,g:u8,b:u8)->Color{...}
+}
+
+let red = Color::new(255,0,0);
+let purple=Color::new(100,0,255);
+let (r,g,b)=Color::new(purple);
+```
+
+```
+enum Color{...}
+
+impl Color{
+     fn rgb(color: Color) ->(u8,u8,u8){...}
+     fn new(r:u8,g:u8,b:u8)->Self{...}
+}
+let red = Color::new(255,0,0);
+// these two lines are doing the same thing
+let purple=Color:rgb(purple);
+let (r,g,b)=purple.rgb();
+```
+## Type Parameters
+```
+let last_char=my_string.pop();
+let last_char:Option<char>=my_string.pop();
+
+enum Option<T>{
+    None,
+    Some(T)
+}
+
+let email: Option<String> =Some(email_str);
+let email:Option<String>=None;
+```
+**(None is Option::None - the prefix is optional for Option)**
+
+```
+enum Result<O,E>{
+    Ok(O),
+    Err(E)
+}
+
+let success: Result<i64,String>=Ok(42);
+let failure: Result<i64,String>=Err(str);
+```
+**(the Result is also optional)**
+
+
+## Vectors
+
+```
+let mut years:Vec<i32>= vec![1995,2000,2005];
+
+years.push(2010); // Now years has 4 elements ending in 2010
+
+years.push(2015);
+
+println!("Number of years: {}",years.len());
+```
+
+## Vectors vs Arrays
+```
+let mut nums:[u8:3]=[1,2,3];
+let mut: Vec<u8> =vec![1,2,3];
+
+for num in nums {....}
+```
+
+**the tradeoffs here set the stage for the biggest factor in the language performance!**
+
+## Stack memory and Heap memory
+
+
+
+
+
+
+
+
