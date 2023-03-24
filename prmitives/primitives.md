@@ -175,11 +175,32 @@ let mut: Vec<u8> =vec![1,2,3];
 
 for num in nums {....}
 ```
-
+- usize: u64 on 64-bit systems, u32 on 32 bit systems
+- stack memory: stack_bytes[stack_length-1]
+- heap memory: heap_bytes[index_of_first_elem]
+  
 **the tradeoffs here set the stage for the biggest factor in the language performance!**
 
 ## Stack memory and Heap memory
 
+Two different region in memory
+1. stack
+   ```
+   fn increment_decrement(num:u8){
+    print_nums(num+1,num-1);
+   }
+   fn print_nums(x:u8,y:u8){...}
+   increment_decrement(42);
+   ```
+ 
+
+2. heap
+   ```
+   struct  VecMetadata{
+    first_elem_index: usize,
+    length: usize,
+    capacity: usize
+   }
 
 
 
