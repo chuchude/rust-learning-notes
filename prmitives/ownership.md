@@ -58,3 +58,9 @@ fn main(){
 }
 
 ```
+
+### conclusion of ownership
+
+- manual dealloc(), use-after-free, double free
+-  automatic  garbage collector vs Rust's scope-based heuristics
+  
