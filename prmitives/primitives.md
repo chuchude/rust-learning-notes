@@ -203,6 +203,26 @@ Two different region in memory
    }
 
 
+# Ownership
+
+## Manual memory management
+- it usually means when it is safe to mark something on the heap as no long in use
+```
+fn get_final_orders()->i64{
+    let orders=vec![1,2,3,4]; // alloc
+    let mut total_orders=0;
+    for order in orders.iter(){
+        total_orders+=orders
+    }
+    let final_orders=finish(total_orders);
+    // dealloc(orders); // free the memory
+    return final_orders;
+}
+## Automatic memory management
+
+## Ownnership
+
+## Cloning
 
 
 
