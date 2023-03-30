@@ -147,3 +147,66 @@ let years_ref2:&Vec<i32>=&years;
 ``` 
 let nums=vec![1,2,3];
 let slice=&num[0...2]; // get part of the vector
+
+```
+
+## Lifetimes
+
+``` 
+let years: Vec<i64>=vec![1980,1985,1990,1995,2000,2005,2010];
+
+let eighties: &[i64]=&years[0..2];
+let nineties:&[i64]=&years[2::4];
+
+println!("We have {} years in the nineties",nineies.len());
+
+Release{
+    years,eighties,nineties
+}
+```
+
+```
+struct Releases{ // rust doesn't allow to do this way without lifetime annotation when using slice,you need to explicitly define annotation.
+    years: &[i64],
+    eighties: &[i64],
+    nineties: &[i64],
+}
+
+fn jazz_releases(years:&[i64])->Release{...}
+
+let releases={ // anonymous scope
+    let all_years: Vec<i64>=vec![1980,1985,1990,1995,2000,2005,2010];
+    jazz_releases(&all_years);
+} // deallocate all_years
+
+let eighties=releases.eighties; // use-after-free!!!!!!!!
+
+// The fix is to use lifetime annotation
+// a lifttime parameter named a
+fn jazz_releases<'a>(years:&'a[i64])->Release{ //you can choose any name, not just "a"
+   let eighties:&'a[i64]=&years[0..2];
+   let nineies:&'a[i64]=&years[2...4];
+
+   Releases{
+    years,
+    eighties,
+    nineies
+   }
+ }
+
+or
+
+struct Releases<'y>{
+    years:&'y.[i64],
+    eighties:&'y.[i64],
+    nineies:&'y.[i64]
+}
+```
+
+### Lifetime Elision
+
+### The static lifetime
+**things that have the static lifetime, they don't get allocated and deallocated, they always exist. it is in the binary**
+```
+let name="Sam"; = let name:&'static str="Sam"; // these two are the same thing.
+let name:&str="Sam";
